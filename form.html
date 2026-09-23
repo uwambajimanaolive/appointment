@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <style>
+        .appointment-card {
+            max-width: 680px;
+            margin: 30px auto;
+            padding: 35px 40px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #2c3e50;
+            box-sizing: border-box;
+        }
+
+        .appointment-card h3 {
+            margin: 0 0 8px 0;
+            color: #0b3c5d;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .appointment-card p.subtitle {
+            margin: 0 0 28px 0;
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            /* Bold form labels */
+            color: #34495e;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group label span.required {
+            color: #e74c3c;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="email"],
+        .form-group input[type="date"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #dcdfe6;
+            border-radius: 6px;
+            font-size: 15px;
+            color: #2c3e50;
+            background-color: #fafbfc;
+            box-sizing: border-box;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #0b3c5d;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(11, 60, 93, 0.12);
+            outline: none;
+        }
+
+        .radio-container {
+            display: flex;
+            gap: 20px;
+            padding-top: 6px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            /* Bold radio options */
+            color: #4a5568;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            accent-color: #0b3c5d;
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            grid-column: span 2;
+            width: 100%;
+            background-color: #0b3c5d;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(11, 60, 93, 0.25);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-submit:hover {
+            background-color: #072a42;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(11, 60, 93, 0.35);
+        }
+
+        /* SUCCESS MESSAGE STYLES */
+        .success-banner {
+            display: none;
+            padding: 25px;
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            color: #166534;
+        }
+
+        .success-banner h4 {
+            margin: 0 0 10px 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success-banner p {
+            margin: 0 0 12px 0;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #166534;
+        }
+
+        .success-banner ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 14px;
+            color: #166534;
+        }
+
+        .success-banner li {
+            margin-bottom: 6px;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width,
+            .btn-submit {
+                grid-column: span 1;
+            }
+
+            .appointment-card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="appointment-card">
+        <div id="form-container">
+            <h3>Book an Appointment</h3>
+            <p class="subtitle">Please fill out the form below. Our team will process your request and confirm your
+                scheduled slot.</p>
+
+            <form id="appointment-form" action="#" method="POST" class="form-grid">
+                <div class="form-group full-width">
+                    <label for="fullname">Full Name <span class="required">*</span></label>
+                    <input type="text" id="fullname" name="fullname" required placeholder="e.g. Jean Damascene">
+                </div>
+
+                <div class="form-group">
+                    <label for="nid">National ID / Passport <span class="required">*</span></label>
+                    <input type="text" id="nid" name="nid" required placeholder="1 19XX X XXXXXXX X XX">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" required placeholder="0 788 000 000">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="patient@example.com">
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="department">Select Specialty / Department <span class="required">*</span></label>
+                    <select id="department" name="department" required>
+                        <option value="">-- Select Department --</option>
+                        <option value="dental">Dental & Stomatology</option>
+                        <option value="opd">Outpatient Department (OPD)</option>
+                        <option value="pediatrics">Pediatrics & Child Health</option>
+                        <option value="internal_medicine">Internal Medicine</option>
+                        <option value="surgery">General Surgery</option>
+                        <option value="gynecology">Gynecology & Obstetrics</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Do you have a transfer letter from a Health Center? <span class="required">*</span></label>
+                    <div class="radio-container">
+                        <label class="radio-option">
+                            <input type="radio" id="ref_yes" name="referral" value="yes" required> Yes
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" id="ref_no" name="referral" value="no"> No (Follow-up / Direct)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="app_date">Preferred Date <span class="required">*</span></label>
+                    <input type="date" id="app_date" name="app_date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="app_time">Preferred Time Slot <span class="required">*</span></label>
+                    <select id="app_time" name="app_time" required>
+                        <option value="">-- Select Time Slot --</option>
+                        <option value="morning">Morning (08:00 AM – 12:00 PM)</option>
+                        <option value="afternoon">Afternoon (01:00 PM – 05:00 PM)</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="notes">Reason for Visit / Symptoms (Optional)</label>
+                    <textarea id="notes" name="notes" rows="3"
+                        placeholder="Briefly describe your medical concern..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Appointment Request</button>
+            </form>
+        </div>
+
+        <!-- SUCCESS MESSAGE (Appears on submit) -->
+        <div id="success-message" class="success-banner">
+            <h4>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Appointment Request Received!
+            </h4>
+            <p>Thank you for submitting your request to <strong>Kinihira Provincial Hospital</strong>. Our reception
+                team is reviewing your details.</p>
+            <ul>
+                <li>You will receive an SMS or phone confirmation within <strong>24 working hours</strong>.</li>
+                <li>Please remember to bring your <strong>National ID</strong> and <strong>Transfer/Referral
+                        letter</strong> on your visit date.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('appointment-form').addEventListener('submit', function (e) {
+            e.preventDefault(); // Stop standard form page submit/reload
+
+            // Hide form container and display success message
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('success-message').style.display = 'block';
+        });
+    </script>
+
+</body>
+
+</html>
